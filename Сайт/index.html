@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamusick - Профиль игрока</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Подключаем шрифт Minecraft -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.jpeg">
+</head>
+<script src="script.js"></script>
+<body>
+    <!-- ХОЛСТ ДЛЯ ЧАСТИЦ -->
+<canvas id="particle-canvas"></canvas>
+    <!-- ЗВУК КЛИКА -->
+<audio id="click-sound" src="click.ogg" preload="auto"></audio>
+<!-- ЗАГРУЗОЧНЫЙ ЭКРАН -->
+<div id="loading-screen">
+    <div class="loading-content">
+        <h2 class="loading-title">Загрузка мира...</h2>
+        
+        <!-- Полоса прогресса -->
+        <div class="loading-bar-container">
+            <div id="loading-bar" class="loading-bar"></div>
+        </div>
+        
+        <!-- Проценты -->
+        <p id="loading-percent" class="loading-percent">0%</p>
+        
+        <!-- Подпись -->
+        <p class="loading-subtitle">Dreamusick готовится к игре</p>
+    </div>
+</div>
+
+    <div class="container">
+        <!-- Заголовок сайта -->
+        <header>
+            <h1>Dreamusick</h1>
+            <p class="subtitle">Игрок Minecraft</p>
+            <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
+<div class="music-player">
+    <audio id="bg-music" loop>
+        <!-- ЗДЕСЬ ВАШ АУДИОФАЙЛ. Если он называется иначе, поменяйте music.mp3 -->
+        <source src="music.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+    
+    <button id="play-btn" class="music-btn" onclick="toggleMusic()">
+        ▶ ИГРАТЬ МУЗЫКУ
+    </button>
+    <span id="music-status" class="music-status">Выключено</span>
+</div>
+        </header>
+
+         <!-- Навигация (Кнопки) -->
+        <nav>
+            <button class="nav-btn active" onclick="openTab(event, 'home')">Главная</button>
+            <button class="nav-btn" onclick="openTab(event, 'description')">Описание</button>
+            <button class="nav-btn" onclick="openTab(event, 'telegram')">Телеграм</button>
+            <button class="nav-btn" onclick="openTab(event, 'tiktok')">Тик Ток</button>
+            <button class="nav-btn" onclick="openTab(event, 'donate')">Донат</button>
+            <button class="nav-btn" onclick="openTab(event, 'setup')">Сетап</button>
+        </nav>
+
+        <!-- Контент вкладок -->
+        <main>
+            <!-- Вкладка 1: Главная (Скин) -->
+            <div id="home" class="tab-content active">
+                <h2>Скин игрока</h2>
+                <div class="skin-container">
+                    <!-- ВСТАВЬТЕ СВОЙ СКИН СЮДА (замените skin.png на имя вашего файла) -->
+                    <img src="skin.jpeg" alt="Скин Dreamusick" class="minecraft-skin">
+                </div>
+                <p class="skin-caption">Официальный скин Dreamusick</p>
+            </div>
+             <!-- СЧЕТЧИК ПОСЕЩЕНИЙ -->
+<div class="visitor-counter">
+    <span class="counter-label">Посещений:</span>
+    <span id="visit-count" class="counter-number">0</span>
+</div>
+
+            <!-- Вкладка 2: Описание -->
+            <div id="description" class="tab-content">
+                <h2>О игроке</h2>
+                <div class="text-box">
+                    <p><strong>Dreamusick</strong> — это опытный игрок в Minecraft, известный своим профессионализмом и глубоким пониманием игровой механики.</p>
+                    <br>
+                    <p>Специализация: PvP, ига в BedWars, строительство сложными метадоми и спидраны. Обладает стратегическим мышлением и молниеносной реакцией.</p>
+                    <br>
+                    <p>В сообществе ценится за честность, помощь новичкам и стабильный онлайн.</p>
+                </div>
+            </div>
+
+            <!-- Вкладка 3: Телеграм -->
+            <div id="telegram" class="tab-content">
+                <h2>Мой Телеграм</h2>
+                <div class="text-box">
+                    <p>Подписывайтесь на мой канал в Telegram, чтобы не пропустить анонсы стримов и новости.</p>
+                    <br>
+                    <!-- ЗДЕСЬ ВСТАВЬТЕ ССЫЛКУ НА ВАШ ТЕЛЕГРАМ (вместо #) -->
+                    <a href="https://t.me/mikromirdreamusick" target="_blank" class="social-link">Перейти в Telegram</a>
+                    <br><br>
+                    <p class="hint"></p>
+                </div>
+            </div>
+
+            <!-- Вкладка 4: Тик Ток -->
+            <div id="tiktok" class="tab-content">
+                <h2>Мой Тик Ток</h2>
+                <div class="text-box">
+                    <p>Смотрите короткие видео, нарезки и смешные моменты на моем канале в TikTok.</p>
+                    <br>
+                    <!-- ЗДЕСЬ ВСТАВЬТЕ ССЫЛКУ НА ВАШ ТИК ТОК (вместо #) -->
+                    <a href="www.tiktok.com/@dreamusick0" target="_blank" class="social-link">Перейти в TikTok</a>
+                    <br><br>
+                    <p class="hint"></p>
+                </div>
+            </div>
+
+            <!-- Вкладка 5: Донат -->
+            <div id="donate" class="tab-content">
+                <h2>Поддержать проект</h2>
+                <div class="text-box">
+                    <p>Ваша поддержка помогает мне развиваться, улучшать контент и участвовать в турнирах.</p>
+                    <br>
+<!-- ЗДЕСЬ ВСТАВЬТЕ ВАШИ ДАННЫЕ ДЛЯ ДОНАТА (номер карты, ссылку на DonationAlerts и т.д.) -->
+                    <div class="donate-info">
+                        <p><strong>Ссылка для доната:</strong> <a href="https://www.donationalerts.com/r/dvoryaninovmiron" class="social-link">DonationAlerts</a></p>
+                    </div>
+                    <br>
+                    <p class="hint"></p>
+                </div>
+            </div>
+            <!-- Вкладка: Мой сетап -->
+<div id="setup" class="tab-content">
+    <h2>Мой сетап</h2>
+    <div class="setup-grid">
+        
+        <div class="setup-item">
+            <div class="setup-icon">🖥️ </div>
+            <div class="setup-text">
+                <span class="setup-label">Видеокарта</span>
+                <span class="setup-value">NVIDIA GeForce RTX 4070</span>
+            </div>
+        </div>
+
+        <div class="setup-item">
+            <div class="setup-icon">⚙️ </div>
+            <div class="setup-text">
+                <span class="setup-label">Процессор</span>
+                <span class="setup-value">Intel Core i5-13600K</span>
+            </div>
+        </div>
+
+        <div class="setup-item">
+            <div class="setup-icon">💾 </div>
+            <div class="setup-text">
+                <span class="setup-label">SSD</span>
+                <span class="setup-value">1 ТБ NVMe</span>
+            </div>
+        </div>
+
+        <div class="setup-item">
+            <div class="setup-icon">⌨️ </div>
+            <div class="setup-text">
+                <span class="setup-label">Клавиатура</span>
+                <span class="setup-value">Ajazz AK820 Pro</span>
+            </div>
+        </div>
+
+        <div class="setup-item">
+            <div class="setup-icon">🖱️ </div>
+            <div class="setup-text">
+                <span class="setup-label">Мышка</span>
+                <span class="setup-value">Redragon</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+        </main>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            // Скрываем все вкладки
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            // Убираем активный класс у всех кнопок
+            tablinks = document.getElementsByClassName("nav-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            // Показываем текущую вкладку и делаем кнопку активной
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
