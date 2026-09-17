@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7Г — ШКОЛА 18 · НЕ ВХОДИТЬ</title>
+  <link rel="stylesheet" href="slyle.css">
+</head>
+<body>
+
+  <!-- Кровавый туман на фоне -->
+  <div class="fog"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="warning-tape">⚠️  ОПАСНАЯ ЗОНА ⚠️  НЕ ВХОДИТЬ ⚠️  ОПАСНАЯ ЗОНА ⚠️ </div>
+
+      <h1 class="title glitch" data-text="7 «Г»">7 «Г»</h1>
+      <p class="subtitle">ШКОЛА №18 · КАБИНЕТ, КОТОРОГО НЕТ В РАСПИСАНИИ</p>
+
+      <div class="skull">💀 </div>
+
+      <p class="intro">
+        Это не обычный класс. Это <strong>7Г</strong>.<br>
+        Если ты попадёшь туда — <em>тебя съедят</em>.<br>
+        Мы серьёзно. Мы не шутим. Ну, почти.
+      </p>
+
+      <button class="scary-btn" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
+        ХОЧЕШЬ УВИДЕТЬ? 👁
+      </button>
+
+      <p class="small-warning">* нажми, если не боишься остаться без пальцев</p>
+    </div>
+  </header>
+
+  <!-- ПРАВИЛА ВЫЖИВАНИЯ -->
+  <section class="rules">
+    <h2>ПРАВИЛА ВЫЖИВАНИЯ В 7Г</h2>
+    <ul>
+      <li>1. Не заходи в кабинет после третьего звонка.</li>
+      <li>2. Если услышал шёпот «домашка… домашка…» — <strong>БЕГИ</strong>.</li>
+      <li>3. Не садись за последнюю парту. За ней сидит <em>ОН</em>.</li>
+      <li>4. Если тебя спросили «а ты сделал 12-й номер?» — это ловушка.</li>
+      <li>5. Никогда. Не открывай. Журнал. 7Г.</li>
+    </ul>
+  </section>
+
+  <!-- ГАЛЕРЕЯ ФОТО -->
+  <section class="gallery-section" id="gallery">
+    <h2>ФОТО ОТТУДА (снято выжившими)</h2>
+    <p class="gallery-note">Каждое фото приближает тебя к обеду. Который — ты.</p>
+
+    <div class="gallery">
+      <figure class="photo-card">
+          <img src="(5).jpeg" alt="Фото из 7Г">
+          <figcaption>Коридор. Из этого коридора пропадали люди. </figcaption>
+      </figure>
+
+      <figure class="photo-card">
+          <img src="Рюкзак.jpeg" alt="Фото из 7Г">
+          <figcaption>Рюкзак. Говорят, что хозяин пропал, а рюкзак нашли.</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+          <img src="Артем.jpeg" alt="Фото из 7Г">
+          <figcaption>Артем. Говорят, он что он пукает</figcaption>
+      </figure>
+      <figure class="photo-card">
+          <img src="Ученик.jpeg" alt="Фото из 7Г">
+          <figcaption>Ученик. Говорит, что он не аномальный. Верим? </figcaption>
+      </figure>
+
+      <figure class="photo-card">
+          <img src="Стул.jpeg" alt="Фото из 7Г">
+          <figcaption>Стул. Говорят, что он летает. </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ПРЕДУПРЕЖДЕНИЕ -->
+  <section class="final-warning">
+    <h2>ЕСЛИ ТЫ ВСЁ-ТАКИ ЗАШЁЛ В 7Г</h2>
+    <ol>
+      <li>Не смотри в глаза первому ряду.</li>
+      <li>Скажи «я только спросить» — это даёт 5 секунд форы.</li>
+      <li>Брось пенал в угол и беги, пока они делят пенал.</li>
+      <li>Если не успел — передай привет 8Г. Теперь ты часть 7Г.</li>
+    </ol>
+15:31
+<p class="final-line">Удачи. Она тебе понадобится. 🍽</p>
+  </section>
+
+  <footer>
+    <p>© 18 ШКОЛА · 7Г · Сайт создан выжившими. Фото добавляй сам, если остался жив.</p>
+  </footer>
+
+  <script>
+    // лёгкий "страшный" эффект — тряска при клике в любом месте
+    document.addEventListener('click', (e) => {
+      document.body.style.transform = 'translate(2px, -2px)';
+      setTimeout(() => document.body.style.transform = '', 80);
+    });
+  </script>
+
+</body>
+</html>
