@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrangePlace</title>
+    <link rel="stylesheet" href="1.css">
+</head>
+<body>
+    <div class="noise"></div>
+
+<!-- КРОВАВАЯ ТОЧКА ЗА КУРСОРОМ -->
+<div class="blood-dot" id="bloodDot"></div>
+
+<!-- ОСНОВНОЙ БЛОК -->
+<div class="container">
+    <h1>Я ЗНАЮ ГДЕ ТЫ</h1>
+    <button class="coords-btn" id="coordsButton">ОТКРОЙ</button>
+
+    <div class="coords-display" id="coordsDisplay">
+        <span class="coords-text" id="coordsText">??????????</span>
+    </div>
+
+    <div class="warning">ОНИ УЖЕ ЗДЕСЬ</div>
+</div>
+
+<script>
+    // =============================================
+    //   ВПИШИ СВОИ КООРДИНАТЫ ЗДЕСЬ:
+    // =============================================
+    const MY_COORDINATES = "44.997777 N, 41.082738° E";   // <-- ЗАМЕНИ НА СВОИ
+    // =============================================
+
+    (function() {
+        const button = document.getElementById('coordsButton');
+        const coordsDisplay = document.getElementById('coordsDisplay');
+        const coordsText = document.getElementById('coordsText');
+        const bloodDot = document.getElementById('bloodDot');
+
+        // Изначально скрытый вид
+        coordsDisplay.classList.add('hidden');
+        coordsText.textContent = '??????????';
+        coordsText.classList.remove('revealed');
+
+        // Кнопка "ОТКРОЙ"
+        button.addEventListener('click', function() {
+            // Показываем координаты
+            coordsDisplay.classList.remove('hidden');
+            coordsText.textContent = MY_COORDINATES;
+            coordsText.classList.add('revealed');
+
+            // Жуткий звук? Нет, только визуал.
+            // Добавим лёгкую тряску контейнера
+            const container = document.querySelector('.container');
+            container.style.animation = 'none';
+            container.offsetHeight; // reflow
+            container.style.animation = 'containerPulse 6s infinite alternate, shake 0.5s ease';
+
+            // Добавим временный класс для тряски через JS (альтернатива)
+            // Но проще через CSS-анимацию, добавим её динамически
+            const styleSheet = document.createElement("style");
+            styleSheet.textContent = `
+                @keyframes shake {
+                    0% { transform: translate(0, 0) rotate(0deg); }
+                    20% { transform: translate(-8px, 4px) rotate(-1deg); }
+                    40% { transform: translate(8px, -4px) rotate(1deg); }
+                    60% { transform: translate(-5px, -3px) rotate(-0.5deg); }
+                    80% { transform: translate(5px, 3px) rotate(0.5deg); }
+                    100% { transform: translate(0, 0) rotate(0deg); }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+
+            // Убираем тряску через 0.5 сек
+            setTimeout(() => {
+                container.style.animation = 'containerPulse 6s infinite alternate';
+            }, 500);
+
+            // Мигание кнопки
+            button.style.background = '#1a0000';
+            button.style.borderColor = '#b30000';
+            button.style.color = '#ff1a1a';
+            button.style.boxShadow = '0 0 80px rgba(200, 0, 0, 0.8)';
+
+            setTimeout(() => {
+                button.style.background = '';
+                button.style.borderColor = '';
+                button.style.color = '';
+                button.style.boxShadow = '';
+            }, 700);
+
+            // Эффект "кровавых" пятен на фоне (кратковременно)
+            const bloodOverlay = document.createElement('div');
+            bloodOverlay.style.position = 'fixed';
+            bloodOverlay.style.top = '0';
+            bloodOverlay.style.left = '0';
+            bloodOverlay.style.width = '100%';
+            bloodOverlay.style.height = '100%';
+            bloodOverlay.style.background = 'radial-gradient(circle at 40% 50%, rgba(120,0,0,0.3), transparent 70%), radial-gradient(circle at 70% 30%, rgba(100,0,0,0.2), transparent 60%)';
+            bloodOverlay.style.pointerEvents = 'none';
+            bloodOverlay.style.zIndex = '5';
+            bloodOverlay.style.opacity = '0';
+            bloodOverlay.style.transition = 'opacity 0.4s';
+            document.body.appendChild(bloodOverlay);
+
+            setTimeout(() => {
+                bloodOverlay.style.opacity = '1';
+            }, 50);
+
+            setTimeout(() => {
+                bloodOverlay.style.opacity = '0';
+setTimeout(() => bloodOverlay.remove(), 600);
+            }, 800);
+        });
+
+        // "Кровавая" точка за курсором
+        document.addEventListener('mousemove', function(e) {
+            bloodDot.style.left = e.clientX + 'px';
+            bloodDot.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mouseleave', function() {
+            bloodDot.style.opacity = '0';
+        });
+
+        document.addEventListener('mouseenter', function() {
+            bloodDot.style.opacity = '0.6';
+        });
+
+        // Случайное мерцание текста в блоке координат до нажатия
+        setInterval(() => {
+            if (!coordsText.classList.contains('revealed')) {
+                coordsText.style.opacity = Math.random() > 0.7 ? '0.2' : '1';
+                setTimeout(() => {
+                    coordsText.style.opacity = '1';
+                }, 150);
+            }
+        }, 800);
+
+        // Легкое дрожание всей страницы (очень слабое)
+        setInterval(() => {
+            if (Math.random() > 0.85) {
+                document.body.style.transform = `translate(${Math.random() * 3 - 1.5}px, ${Math.random() * 3 - 1.5}px)`;
+                setTimeout(() => {
+                    document.body.style.transform = 'translate(0, 0)';
+                }, 80);
+            }
+        }, 2000);
+    })();
+</script>
+</body>
+</html>
